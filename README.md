@@ -25,6 +25,7 @@ X Articles are useful for long posts, but the editor is not where many people wa
 xPoster is built for that handoff. Markdown stays your source of truth. X stays the final publishing surface.
 
 ## What It Can Do
+- **Qiaomu Blog library**: browse and search all blog articles, filter drafts, published articles or trash, and load an article into xPoster while keeping existing pending drafts. Uses your Chrome blog login after you grant optional access to `https://blog.qiaomu.ai/*`; no API token is stored. Blog HTML is converted to Markdown with images, GFM tables and cover metadata. Loading never changes the blog or publishes to X.
 
 - **Markdown to X Article**: imports headings, paragraphs, lists, quotes, inline styles, links, code, dividers, images, tables, and X/Twitter embeds into the X Article editor.
 - **Single draft or batch queue**: paste one draft, choose a `.md` file, drop one file, or queue multiple Markdown files and write them one by one.

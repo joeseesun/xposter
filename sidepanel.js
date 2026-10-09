@@ -143,6 +143,7 @@
   let remoteImageAccessStatus = { origins: [], available: [], missing: [], checkedAt: null };
   let remoteImageProbeStatus = { state: "idle", total: 0, ok: 0, fail: 0, results: [], checkedAt: null };
   let languageOptionButtons = [];
+  let blogController = null;
 
   const sidepanelMessages = window.xPosterSidepanelMessages?.register?.(i18n, shared, {
     X_ARTICLE_MEDIA_LIMIT_WARNING,
@@ -1478,6 +1479,7 @@
       currentLanguage = preference === "zh" ? "zh" : "en";
     }
     translateVisibleWorkspace();
+    blogController?.translate();
     populateLanguageSelect();
     updateDraftBrief();
     updateDraftEditorStatus();
@@ -5682,6 +5684,7 @@
   }
 
   function hydrateWorkspacePanel(target) {
+    if (target === "blog") blogController?.show();
     if (target === "records") {
       void ensureRecordHistoryRestored({ render: true }).then(() => {
         syncRecordPanel({ translate: true });
@@ -8193,6 +8196,25 @@
     await runRunbookAction(button.dataset.recoveryAction);
   });
   getLiveResultItems().forEach(({ input }) => input.addEventListener("change", saveLiveResultChecks));
+  blogController = window.xPosterBlog.mount({
+    root: document.getElementById("blogPanel"),
+    chromeApi: chrome,
+    translate: localizeText,
+    convert: window.xPosterBlog.createConverter(window.TurndownService, window.turndownPluginGfm.gfm),
+    onLoad: (markdown, post) => {
+      if (batchWriting || activeWriteQueueItemId || latestProgress.state === "running") {
+        throw new window.xPosterBlog.BlogError("writing");
+      }
+      if (draftQueue.length >= MAX_DRAFT_QUEUE) throw new window.xPosterBlog.BlogError("full");
+      const item = addDraftToQueue(markdown, {
+        fileName: `${post.slug || post.id}.md`, source: "blog", remember: true
+      });
+      if (!item) throw new window.xPosterBlog.BlogError("large");
+      showWorkspacePanel("draft");
+      if (queueModeActive()) openQueueEditor(item.id);
+      else focusDraftTextEditor();
+    }
+  });
   paintStartupShell();
   installDraftStorageSync();
   installDraftDropTray();
