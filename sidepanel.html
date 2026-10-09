@@ -13,6 +13,9 @@
     <script src="src/sidepanel-messages.js" defer></script>
     <script src="src/sidepanel-patterns.js" defer></script>
     <script src="vendor/minigfm.min.js" defer></script>
+    <script src="vendor/turndown.js" defer></script>
+    <script src="vendor/turndown-plugin-gfm.js" defer></script>
+    <script src="src/qiaomu-blog.js" defer></script>
     <script src="sidepanel.js" defer></script>
   </head>
   <body>
@@ -32,6 +35,7 @@
 
       <nav class="tabs" aria-label="Workspace sections">
         <button class="tab active" type="button" data-tab="draft" data-i18n="Pending">Pending</button>
+        <button class="tab" type="button" data-tab="blog" data-i18n="Qiaomu Blog">Qiaomu Blog</button>
         <button class="tab" type="button" data-tab="records" data-i18n="Records">Records</button>
         <button class="tab" type="button" data-tab="settings" data-i18n="Settings">Settings</button>
       </nav>
@@ -125,6 +129,28 @@
             <span class="progress-meter" aria-label="Writing progress meter"><span id="liveProgressBar"></span></span>
           </section>
         </section>
+      </section>
+
+      <section class="blog panel" id="blogPanel" data-panel="blog" aria-label="Qiaomu Blog" data-i18n-aria-label="Qiaomu Blog">
+        <div class="blog-toolbar">
+          <input id="blogSearch" type="search" placeholder="Search blog articles" aria-label="Search blog articles" data-i18n-placeholder="Search blog articles" data-i18n-aria-label="Search blog articles" />
+          <button id="blogRefresh" class="record-icon-action" type="button" title="Refresh articles" aria-label="Refresh articles" data-i18n-title="Refresh articles" data-i18n-aria-label="Refresh articles" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 7a7 7 0 0 1 11.6-2L20 8M4 16l2.3 3A7 7 0 0 0 17.9 17"/></svg>
+          </button>
+        </div>
+        <div class="blog-filters" aria-label="Article status" data-i18n-aria-label="Article status">
+          <button type="button" data-blog-filter="all" aria-pressed="true" data-i18n="All articles">All articles</button>
+          <button type="button" data-blog-filter="draft" aria-pressed="false" data-i18n="Drafts">Drafts</button>
+          <button type="button" data-blog-filter="published" aria-pressed="false" data-i18n="Published">Published</button>
+          <button type="button" data-blog-filter="deleted" aria-pressed="false" data-i18n="Trash">Trash</button>
+          <span id="blogCount"></span>
+        </div>
+        <p id="blogStatus" class="blog-status" role="status" aria-live="polite" data-i18n="Connect to read your blog articles.">Connect to read your blog articles.</p>
+        <div class="blog-connect-actions">
+          <button id="blogConnect" class="primary compact" type="button" data-i18n="Connect Qiaomu Blog">Connect Qiaomu Blog</button>
+          <button id="blogLogin" class="secondary compact" type="button" data-i18n="Sign in to blog" hidden>Sign in to blog</button>
+        </div>
+        <ul id="blogList" class="blog-list"></ul>
       </section>
 
       <section class="records panel" id="recordsPanel" data-panel="records" aria-label="Records">

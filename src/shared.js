@@ -115,10 +115,14 @@
       const index = line.indexOf(":");
       if (index < 0) continue;
       const key = line.slice(0, index).trim();
-      const value = line
-        .slice(index + 1)
-        .trim()
-        .replace(/^["']|["']$/g, "");
+      const rawValue = line.slice(index + 1).trim();
+      let value = rawValue.replace(/^["']|["']$/g, "");
+      if (rawValue.startsWith('"') && rawValue.endsWith('"')) {
+        try {
+          const decoded = JSON.parse(rawValue);
+          if (typeof decoded === "string") value = decoded;
+        } catch { /* Preserve support for existing non-JSON frontmatter strings. */ }
+      }
       if (key) meta[key] = value;
     }
     return { body: normalized.slice(match[0].length).trim(), meta };

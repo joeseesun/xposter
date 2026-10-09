@@ -34,3 +34,7 @@ xPoster 设计为本地浏览器扩展。
 ## 联系作者
 
 可以通过作者 X 主页联系：[@xiaoxiaodong01](https://x.com/xiaoxiaodong01)。
+
+## 乔木博客文章库
+
+仅在你打开「乔木博客」Tab 并允许访问 `https://blog.qiaomu.ai/*` 后读取文章 API。请求复用该浏览器中的博客登录 Cookie，不读取、保存或同步 API Token。文章列表只保存在当前扩展页面内存中；选择载入的文章会进入已有的本地草稿和导入记录。此功能仅发送 GET 请求，不修改博客文章。正文中的图片沿用 xPoster 的图片授权与导入流程。

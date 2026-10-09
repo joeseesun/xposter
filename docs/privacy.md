@@ -36,3 +36,7 @@ xPoster is designed as a local browser extension.
 ## Contact
 
 Contact the author on X: [@xiaoxiaodong01](https://x.com/xiaoxiaodong01).
+
+## Qiaomu Blog library
+
+After you open the Qiaomu Blog tab and grant optional access to `https://blog.qiaomu.ai/*`, xPoster reads the blog's article API using your existing browser login cookie. It does not read, store or sync API tokens. The directory stays in the extension page's memory; articles you choose to load enter the existing local drafts and records. The integration uses GET requests only and does not modify the blog. Article images use the existing image permission and import flow.

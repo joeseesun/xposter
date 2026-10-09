@@ -1,6 +1,6 @@
 {
   "name": "xposter",
-  "version": "1.42.65",
+  "version": "1.43.1",
   "description": "Chrome MV3 extension for importing Markdown drafts into X Articles.",
   "license": "MIT",
   "type": "commonjs",
@@ -13,16 +13,21 @@
     "publishing"
   ],
   "scripts": {
-    "check": "node --check src/background.js && node --check src/content.js && node --check src/main-world.js && node --check src/shared.js && node --check src/i18n.js && node --check src/sidepanel-config.js && node --check src/sidepanel-elements.js && node --check src/sidepanel-editor.js && node --check src/sidepanel-messages.js && node --check src/sidepanel-patterns.js && node --check sidepanel.js && node --check diagnostics.js && jq empty manifest.json && node scripts/check-i18n.js",
-    "test": "node scripts/smoke-test.js",
-    "verify": "npm run check && npm test"
+    "check": "node --check src/background.js && node --check src/content.js && node --check src/main-world.js && node --check src/shared.js && node --check src/i18n.js && node --check src/sidepanel-config.js && node --check src/sidepanel-elements.js && node --check src/sidepanel-editor.js && node --check src/sidepanel-messages.js && node --check src/sidepanel-patterns.js && node --check sidepanel.js && node --check diagnostics.js && jq empty manifest.json && node scripts/check-i18n.js && node --check src/qiaomu-blog.js",
+    "test": "node scripts/smoke-test.js && node --test scripts/blog-test.js",
+    "verify": "npm run check && npm test",
+    "package": "node scripts/package.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nevertoday/xposter.git"
+    "url": "https://github.com/joeseesun/xposter.git"
   },
   "bugs": {
-    "url": "https://github.com/nevertoday/xposter/issues"
+    "url": "https://github.com/joeseesun/xposter/issues"
   },
-  "homepage": "https://github.com/nevertoday/xposter#readme"
+  "homepage": "https://github.com/joeseesun/xposter#readme",
+  "devDependencies": {
+    "turndown": "^7.2.4",
+    "turndown-plugin-gfm": "^1.0.2"
+  }
 }
